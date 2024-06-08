@@ -1,8 +1,11 @@
 const express = require("express")
 const morgan = require("morgan")
+const cors = require("cors")
 
 const app = express()
 
+// Allow cross-origin requests from any origin.
+app.use(cors())
 
 // Middleware to parse JSON data from request body.
 app.use(express.json())
@@ -118,7 +121,7 @@ const unknownEndpoint = (request, response) => {
 // Use unknownEndpoint middleware to handle unknown endpoints after all other routes are checked (didn't hit any route).
 app.use(unknownEndpoint)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
-    console.log("Server is running on port 3001")
+    console.log(`Server is running on port ${PORT}`)
 })
